@@ -1,6 +1,8 @@
-
+#Dependencies
+/node_modules
 
 #ignore all env files
 *.env
 *.mp3
 *.mp4
+*.pem
