@@ -203,34 +203,6 @@ bot.on('messageCreate', async message => {
                 audioplayer.play(resource);
 
             }
-
-            if(message.content === '.bye'){
-                playAudio('Media/nig.mp3');
-            }
-
-            if(message.content === '.die'){
-                playAudio('./Media/end me2.mp3');
-            }
-
-            if(message.content === 'cringe'){
-                playAudio('./Media/cringe.mp3');
-            }
-
-            if(message.content === '.zombie'){
-                playAudio('./Media/zombie.mp3');
-            }
-
-            if(message.content === '.mom'){
-                playAudio('./Media/Doin your mom.mp3');
-            } 
-
-            if(message.content === '.laugh'){
-                playAudio('./Media/Laugh Track.mp3');
-            }
-
-            if(message.content === '.jacob'){
-                playAudio('./Media/brother.mp3')
-            }
         }
     }
     
