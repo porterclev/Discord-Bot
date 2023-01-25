@@ -1,28 +1,29 @@
 //Constants
-const { Client, Intents, MessageEmbed } = require('discord.js');
-require('dotenv').config();
+const { Client, Intents, MessageEmbed } = require("discord.js");
+require("dotenv").config();
 
-const ytdl = require('ytdl-core');
-const fs = require('fs');
-const voice = require('@discordjs/voice');
-const { join } = require('path');
+const ytdl = require("ytdl-core");
+const fs = require("fs");
+const voice = require("@discordjs/voice");
+const { join } = require("path");
 
-const bot = new Client({ intents: [
-    Intents.FLAGS.GUILDS, 
-    Intents.FLAGS.GUILD_MESSAGES, 
-    Intents.FLAGS.GUILD_VOICE_STATES
-]});
+const bot = new Client({
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_VOICE_STATES,
+  ],
+});
 
 //Start up
-bot.on('ready', async () =>{
-    console.log('This bot is online!');
-    let handler = require('./command-handler.js');
-    if(handler.default){
-        handler = handler.default;
-    }
+bot.on("ready", async () => {
+  console.log("This bot is online!");
+  let handler = require("./command-handler.js");
+  if (handler.default) {
+    handler = handler.default;
+  }
 
-    handler(bot);
-
+  handler(bot);
 });
 
 /*
