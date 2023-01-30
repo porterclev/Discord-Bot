@@ -1,5 +1,10 @@
 //Constants
-const { Client, Intents, MessageEmbed } = require("discord.js");
+const {
+  Client,
+  Intents,
+  MessageEmbed,
+  GatewayIntentBits,
+} = require("discord.js");
 require("dotenv").config();
 
 const ytdl = require("ytdl-core");
@@ -9,9 +14,9 @@ const { join } = require("path");
 
 const bot = new Client({
   intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_VOICE_STATES,
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildVoiceStates,
   ],
 });
 
