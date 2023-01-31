@@ -2,19 +2,14 @@ const {
   EmbedBuilder,
   SlashCommandSubcommandGroupBuilder,
 } = require("discord.js");
-
 const movementController = require("../components/movementController");
 
-/* 
-  Custom map 
-  Max Emoji area = 104 emojis (if emoji name is "shape_square")
-  Max Emoji area = 4096 (max description length of embeds) if emoji name is 1 space
-*/
+/**
+ * Universal map without player and hardcoded emoji placement
+ * @return {string[][]} map of the game
+ */
 const map1 = (g) => {
   const emoji = g.guild.emojis.cache.find((emoji) => emoji.name === "yay");
-  const player = g.guild.emojis.cache.find(
-    (emoji) => emoji.name === "WAAHWAAHBOOHOO_NIBBA"
-  );
   let map = [
     [
       `${emoji}`,
@@ -150,21 +145,21 @@ const map1 = (g) => {
   return map;
 };
 
-/* 
-  gets size of the array
-  @Param g - message information
-  @Return size(array) - index 0 is column length and index 1 is row length
-*/
+/**
+ * Returns the size of the array
+ * @param {object} g - discord message information
+ * @return {integer[]} [column length, row length]
+ */
 function getMapSize(g) {
   size = [map1(g).length, map1(g)[0].length];
   return size;
 }
 
-/* 
-  Description: converts map into an embed
-  @Param g - message information
-  @Return embed - Embed of array of emojis
-*/
+/**
+ * Converts map into an embed
+ * @param {object} g - discord message information
+ * @param {String[][]} map - prints a map in the form of a 2D array
+ */
 function printMap(g, map) {
   let string = "";
   for (let k = 0; k < map.length; k++) {

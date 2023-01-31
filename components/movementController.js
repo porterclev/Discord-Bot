@@ -1,135 +1,38 @@
 const mapConfig = require("../maps/map1.js");
 const { EmbedBuilder } = require("discord.js");
 
-function moveUp(message, map) {
-  const hole = message.guild.emojis.cache.find(
-    (emoji) => emoji.name === "hole"
-  );
-  const player = message.guild.emojis.cache.find(
-    (emoji) => emoji.name === "WAAHWAAHBOOHOO_NIBBA"
-  );
-  let x = 0;
-  let y = 0;
-  for (let i = 0; i < 5; i++) {
-    for (let j = 0; j < 5; j++) {
-      if (map[i][j] === `${player}`) {
-        x = j;
-        y = i;
-      }
-    }
-  }
-
-  map[y][x] = `${hole}`;
-  y -= 1;
-  map[y][x] = `${player}`;
-  return map;
-}
-function moveDown(message, map) {
-  let hole = message.guild.emojis.cache.find((emoji) => emoji.name === "hole");
-  let player = message.guild.emojis.cache.find(
-    (emoji) => emoji.name === "WAAHWAAHBOOHOO_NIBBA"
-  );
-  let x = 0;
-  let y = 0;
-  for (let i = 0; i < 5; i++) {
-    for (let j = 0; j < 5; j++) {
-      if (map[i][j] === `${player}`) {
-        x = j;
-        y = i;
-      }
-    }
-  }
-
-  map[y][x] = `${hole}`;
-  y += 1;
-  map[y][x] = `${player}`;
-  return map;
-}
-function moveLeft(message, map) {
-  let hole = message.guild.emojis.cache.find((emoji) => emoji.name === "hole");
-  let player = message.guild.emojis.cache.find(
-    (emoji) => emoji.name === "WAAHWAAHBOOHOO_NIBBA"
-  );
-  let x = 0;
-  let y = 0;
-  for (let i = 0; i < 5; i++) {
-    for (let j = 0; j < 5; j++) {
-      if (map[i][j] === `${player}`) {
-        x = j;
-        y = i;
-      }
-    }
-  }
-
-  map[y][x] = `${hole}`;
-  x -= 1;
-  map[y][x] = `${player}`;
-  return map;
-}
-function moveRight(message, map) {
-  let hole = message.guild.emojis.cache.find((emoji) => emoji.name === "hole");
-  let player = message.guild.emojis.cache.find(
-    (emoji) => emoji.name === "WAAHWAAHBOOHOO_NIBBA"
-  );
-  let x = 0;
-  let y = 0;
-  for (let i = 0; i < 5; i++) {
-    for (let j = 0; j < 5; j++) {
-      if (map[i][j] === `${player}`) {
-        x = j;
-        y = i;
-      }
-    }
-  }
-
-  map[y][x] = `${hole}`;
-  x += 1;
-  map[y][x] = `${player}`;
-  return map;
-}
-
 var playerX = 0;
 var playerY = 0;
 var playerEmoji = "WAAHWAAHBOOHOO_NIBBA";
 
-/* 
-  Description: moves player on the map
-  @Param message - contains channel information where the command was typed in
-  @Param vertical (Bool) - if player is moving up or down
-  @Param units (Int) - amount of spaces the player will move
-  @Return units (Int) - amount of spaces the player was moved
-*/
+/**
+ * Moves player on the map
+ * @param {object} message - description
+ * @param {Bool} vertical- if player is moving vertical
+ * @param {Integer} units - distance player will move
+ */
 function movePlayer(message, vertical, units) {
-  // fillerEmoji = mapConfig.map1(message)[0][0];
-
-  /*  for (let i = 0; i < mapConfig.map1(message).length; i++) {
-    maps[i] = new Array(mapConfig.getMapSize(message)[1]);
-    for (let j = 0; j < mapConfig.getMapSize(message)[1]; j++) {
-      maps[i][j] = mapConfig.map1(message)[i][j];
-    }
-  } */
-
-  // maps[playerY][playerX] = `${fillerEmoji}`;
   if (vertical === true) {
     playerY -= units;
-    /* maps[playerY][playerX] = `${message.guild.emojis.cache.find(
-      (emoji) => emoji.name === "WAAHWAAHBOOHOO_NIBBA"
-    )}`; */
-    // return maps;
   } else if (vertical === false) {
     playerX += units;
-    /* maps[playerY][playerX] = `${message.guild.emojis.cache.find(
-      (emoji) => emoji.name === "WAAHWAAHBOOHOO_NIBBA"
-    )}`; */
-    // return maps;
   }
 }
 
+/**
+ * Gets the location of the player
+ * @return {Integer[]} [column number, row number]
+ */
 function getPlayerLocation() {
   let loc = [playerX, playerY];
   return loc;
 }
 
+/**
+ * Player emoji representation
+ * @param {object} message - discord message information
+ * @return {Map<String, Integer>} String of emoji name and Integer of emoji id
+ */
 function getPlayerEmoji(message) {
   let e = message.guild.emojis.cache.find(
     (emoji) => emoji.name === playerEmoji
@@ -138,10 +41,6 @@ function getPlayerEmoji(message) {
 }
 
 module.exports = {
-  moveDown,
-  moveUp,
-  moveLeft,
-  moveRight,
   movePlayer,
   getPlayerLocation,
   getPlayerEmoji,
