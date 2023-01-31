@@ -88,6 +88,10 @@ function moveRight(message, map) {
   return map;
 }
 
+var playerX = 0;
+var playerY = 0;
+var playerEmoji = "WAAHWAAHBOOHOO_NIBBA";
+
 /* 
   Description: moves player on the map
   @Param message - contains channel information where the command was typed in
@@ -96,33 +100,49 @@ function moveRight(message, map) {
   @Return units (Int) - amount of spaces the player was moved
 */
 function movePlayer(message, vertical, units) {
-  let playerX = 0;
-  let playerY = 1;
-  fillerEmoji = message.guild.emojis.cache.find(
-    (emoji) => emoji.name === mapConfig.map1(message)[0][0].name
-  );
-  let maps = [];
-  for (let i = 0; i < mapConfig.map1(message).length; i++) {
+  // fillerEmoji = mapConfig.map1(message)[0][0];
+
+  /*  for (let i = 0; i < mapConfig.map1(message).length; i++) {
     maps[i] = new Array(mapConfig.getMapSize(message)[1]);
     for (let j = 0; j < mapConfig.getMapSize(message)[1]; j++) {
       maps[i][j] = mapConfig.map1(message)[i][j];
     }
-  }
+  } */
 
-  maps[playerY][playerX] = `${fillerEmoji}`;
+  // maps[playerY][playerX] = `${fillerEmoji}`;
   if (vertical === true) {
     playerY -= units;
-    maps[playerY][playerX] = `${message.guild.emojis.cache.find(
+    /* maps[playerY][playerX] = `${message.guild.emojis.cache.find(
       (emoji) => emoji.name === "WAAHWAAHBOOHOO_NIBBA"
-    )}`;
-    return maps;
+    )}`; */
+    // return maps;
   } else if (vertical === false) {
     playerX += units;
-    maps[playerY][playerX] = `${message.guild.emojis.cache.find(
+    /* maps[playerY][playerX] = `${message.guild.emojis.cache.find(
       (emoji) => emoji.name === "WAAHWAAHBOOHOO_NIBBA"
-    )}`;
-    return maps;
+    )}`; */
+    // return maps;
   }
 }
 
-module.exports = { moveDown, moveUp, moveLeft, moveRight, movePlayer };
+function getPlayerLocation() {
+  let loc = [playerX, playerY];
+  return loc;
+}
+
+function getPlayerEmoji(message) {
+  let e = message.guild.emojis.cache.find(
+    (emoji) => emoji.name === playerEmoji
+  );
+  return e;
+}
+
+module.exports = {
+  moveDown,
+  moveUp,
+  moveLeft,
+  moveRight,
+  movePlayer,
+  getPlayerLocation,
+  getPlayerEmoji,
+};
