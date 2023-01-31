@@ -1,4 +1,4 @@
-const mapConfig = require("./maps/map1.js");
+const mapConfig = require("../maps/map1.js");
 const { EmbedBuilder } = require("discord.js");
 
 function moveUp(message, map) {
@@ -98,16 +98,18 @@ function moveRight(message, map) {
 function movePlayer(message, vertical, units) {
   let playerX = 0;
   let playerY = 1;
-  let maps = [[], []];
-  for (let i = 0; i < mapConfig.map1.length; i++) {
-    for (let j = 0; j < mapConfig.getMapSize()[1]; j++) {
-      map1[i][j] = maps[i][j];
+  fillerEmoji = message.guild.emojis.cache.find(
+    (emoji) => emoji.name === mapConfig.map1(message)[0][0].name
+  );
+  let maps = [];
+  for (let i = 0; i < mapConfig.map1(message).length; i++) {
+    maps[i] = new Array(mapConfig.getMapSize(message)[1]);
+    for (let j = 0; j < mapConfig.getMapSize(message)[1]; j++) {
+      maps[i][j] = mapConfig.map1(message)[i][j];
     }
   }
 
-  maps[playerY][playerX] = `${message.guild.emojis.cache.find(
-    (emoji) => emoji.name === "hole"
-  )}`;
+  maps[playerY][playerX] = `${fillerEmoji}`;
   if (vertical === true) {
     playerY -= units;
     maps[playerY][playerX] = `${message.guild.emojis.cache.find(

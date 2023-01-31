@@ -1,10 +1,9 @@
-const mapConfig = require("./components/maps/map1.js");
+const mapConfig = require("./maps/map1.js");
 const fs = require("fs");
 const getFiles = require("./commands/get-files.js");
 const controller = require("./commands/movementController.js");
 const { MessageEmbed } = require("discord.js");
 const { movePlayer } = require("./components/movementController.js");
-const { map1 } = require("./components/maps/map1.js");
 
 module.exports = (client) => {
   const commands = {};
@@ -31,19 +30,21 @@ module.exports = (client) => {
 
   client.on("messageCreate", (message) => {
     // let maps = map(message.guild);
+
+    //cancels processing if auther is a bot or message doesn't start with "."
     if (message.author.bot || !message.content.startsWith(".")) {
       return;
     }
 
     const args = message.content.slice(1).split(/ +/);
     const commandName = args.shift().toLowerCase();
-
     try {
       // Checks if directional movement commands are called
       if (commandName === "moveup") {
-        movePlayer(message, true, 1);
         message.channel
-          .send({ embeds: [mapConfig.printMap()] })
+          .send({
+            embeds: [mapConfig.printMap(message, movePlayer(message, true, 1))],
+          })
           .then((sentMessage) => {
             sentMessage.react("⬅️"),
               sentMessage.react("⬆️"),
@@ -51,9 +52,12 @@ module.exports = (client) => {
               sentMessage.react("➡️");
           });
       } else if (commandName === "movedown") {
-        movePlayer(message, true, -1);
         message.channel
-          .send({ embeds: [mapConfig.printMap()] })
+          .send({
+            embeds: [
+              mapConfig.printMap(message, movePlayer(message, true, -1)),
+            ],
+          })
           .then((sentMessage) => {
             sentMessage.react("⬅️"),
               sentMessage.react("⬆️"),
@@ -61,9 +65,12 @@ module.exports = (client) => {
               sentMessage.react("➡️");
           });
       } else if (commandName === "moveleft") {
-        movePlayer(message, false, -1);
         message.channel
-          .send({ embeds: [mapConfig.printMap()] })
+          .send({
+            embeds: [
+              mapConfig.printMap(message, movePlayer(message, false, -1)),
+            ],
+          })
           .then((sentMessage) => {
             sentMessage.react("⬅️"),
               sentMessage.react("⬆️"),
@@ -71,9 +78,12 @@ module.exports = (client) => {
               sentMessage.react("➡️");
           });
       } else if (commandName === "moveright") {
-        movePlayer(message, false, 1);
         message.channel
-          .send({ embeds: [mapConfig.printMap()] })
+          .send({
+            embeds: [
+              mapConfig.printMap(message, movePlayer(message, false, 1)),
+            ],
+          })
           .then((sentMessage) => {
             sentMessage.react("⬅️"),
               sentMessage.react("⬆️"),
