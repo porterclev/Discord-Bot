@@ -26,4 +26,6 @@ Full administration w/messaging turned on
 ### add discord.js
 ###### Currently runs on discord.js v14.7.1
 
+## Website
+### in progress...
 
