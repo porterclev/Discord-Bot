@@ -1,7 +1,6 @@
 const mapConfig = require("./maps/map1.js");
 const getFiles = require("./commands/get-files.js");
 const movementController = require("./components/movementController.js");
-const adjAdj = require("./components/adjScrape.js");
 
 module.exports = (client) => {
   const commands = {};
