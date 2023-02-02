@@ -178,4 +178,15 @@ function printMap(g, map) {
 
   return embed;
 }
-module.exports = { map1, getMapSize, printMap };
+
+/**
+ * Sends an empty map without the player
+ * @param {object} message - message/server information
+ * @param {String[][]} map - 2D array of the map
+ */
+function printEmptyMap(message, map) {
+  message.channel.send({
+    embeds: [mapConfig.printMap(message, map)],
+  });
+}
+module.exports = { map1, getMapSize, printMap, printEmptyMap };
