@@ -40,8 +40,92 @@ function getPlayerEmoji(message) {
   return e;
 }
 
+/**
+ * moves player up
+ * @param {Integer} units - moves player this many units
+ * @param {object} message - message/bot information
+ */
+function moveUp(message, units) {
+  //moves player up 1 unit
+  movePlayer(message, true, units);
+  message.channel //send embed of game map with player to channel message/command was sent in
+    .send({
+      embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
+    })
+    .then((sentMessage) => {
+      sentMessage.react("⬅️"),
+        sentMessage.react("⬆️"),
+        sentMessage.react("⬇️"),
+        sentMessage.react("➡️");
+    });
+}
+
+/**
+ * moves player up
+ * @param {Integer} units - moves player this many units
+ * @param {object} message - message/bot information
+ */
+function moveDown(message, units) {
+  //moves player down 1 unit
+  movePlayer(message, true, -units);
+  message.channel //send embed of game map with player to channel message/command was sent in
+    .send({
+      embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
+    })
+    .then((sentMessage) => {
+      sentMessage.react("⬅️"),
+        sentMessage.react("⬆️"),
+        sentMessage.react("⬇️"),
+        sentMessage.react("➡️");
+    });
+}
+
+/**
+ * moves player up
+ * @param {Integer} units - moves player this many units
+ * @param {object} message - message/bot information
+ */
+function moveLeft(message, units) {
+  //moves player left 1 unit
+  movePlayer(message, false, -units);
+  message.channel //send embed of game map with player to channel message/command was sent in
+    .send({
+      embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
+    })
+    .then((sentMessage) => {
+      sentMessage.react("⬅️"),
+        sentMessage.react("⬆️"),
+        sentMessage.react("⬇️"),
+        sentMessage.react("➡️");
+    });
+}
+
+/**
+ * moves player up
+ * @param {Integer} units - moves player this many units
+ * @param {object} message - message/bot information
+ */
+function moveRight(message, units) {
+  //moves player right 1 unit
+  movePlayer(message, false, units);
+  message.channel //send embed of game map with player to channel message/command was sent in
+    .send({
+      embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
+    })
+    .then((sentMessage) => {
+      sentMessage.react("⬅️"),
+        sentMessage.react("⬆️"),
+        sentMessage.react("⬇️"),
+        sentMessage.react("➡️");
+    });
+}
+
 module.exports = {
   movePlayer,
   getPlayerLocation,
   getPlayerEmoji,
+  moveUp,
+  moveDown,
+  moveLeft,
+  moveRight,
 };
