@@ -1,6 +1,5 @@
 const mapConfig = require("./maps/map1.js");
-const getFiles = require("./commands/get-files.js");
-const movementController = require("./components/movementController.js");
+const getFiles = require("./components/get-files.js");
 
 module.exports = (client) => {
   const commands = {};
@@ -39,65 +38,7 @@ module.exports = (client) => {
     const commandName = args.shift().toLowerCase();
 
     try {
-      /* 
-        ---TESTING---
-        Checks if directional movement commands are called 
-      */
-      if (commandName === "moveup") {
-        //moves player up 1 unit
-        movementController.movePlayer(message, true, 1);
-        message.channel //send embed of game map with player to channel message/command was sent in
-          .send({
-            embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
-          })
-          .then((sentMessage) => {
-            sentMessage.react("⬅️"),
-              sentMessage.react("⬆️"),
-              sentMessage.react("⬇️"),
-              sentMessage.react("➡️");
-          });
-      } else if (commandName === "movedown") {
-        //moves player down 1 unit
-        movementController.movePlayer(message, true, -1);
-        message.channel //send embed of game map with player to channel message/command was sent in
-          .send({
-            embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
-          })
-          .then((sentMessage) => {
-            sentMessage.react("⬅️"),
-              sentMessage.react("⬆️"),
-              sentMessage.react("⬇️"),
-              sentMessage.react("➡️");
-          });
-      } else if (commandName === "moveleft") {
-        //moves player left 1 unit
-        movementController.movePlayer(message, false, -1);
-        message.channel //send embed of game map with player to channel message/command was sent in
-          .send({
-            embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
-          })
-          .then((sentMessage) => {
-            sentMessage.react("⬅️"),
-              sentMessage.react("⬆️"),
-              sentMessage.react("⬇️"),
-              sentMessage.react("➡️");
-          });
-      } else if (commandName === "moveright") {
-        //moves player right 1 unit
-        movementController.movePlayer(message, false, 1);
-        message.channel //send embed of game map with player to channel message/command was sent in
-          .send({
-            embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
-          })
-          .then((sentMessage) => {
-            sentMessage.react("⬅️"),
-              sentMessage.react("⬆️"),
-              sentMessage.react("⬇️"),
-              sentMessage.react("➡️");
-          });
-      } else {
-        commands[commandName].callback(message, args, mapConfig.map1(message));
-      }
+      commands[commandName].callback(message, args, mapConfig.map1(message));
     } catch (error) {
       console.error(error);
     }
