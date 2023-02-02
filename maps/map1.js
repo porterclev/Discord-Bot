@@ -8,7 +8,7 @@ const movementController = require("../components/movementController");
  * Universal map without player and hardcoded emoji placement
  * @return {string[][]} map of the game
  */
-const map1 = (g) => {
+function map1(g) {
   const emoji = g.guild.emojis.cache.find((emoji) => emoji.name === "yay");
   let map = [
     [
@@ -143,11 +143,11 @@ const map1 = (g) => {
     ],
   ];
   return map;
-};
+}
 
 /**
  * Returns the size of the array
- * @param {object} g - discord message information
+ * @param {message} g - discord message information
  * @return {integer[]} [column length, row length]
  */
 function getMapSize(g) {
@@ -157,8 +157,9 @@ function getMapSize(g) {
 
 /**
  * Converts map into an embed
- * @param {object} g - discord message information
+ * @param {message} g - discord message information
  * @param {String[][]} map - prints a map in the form of a 2D array
+ * @return {embed}
  */
 function printMap(g, map) {
   let string = "";
@@ -181,12 +182,12 @@ function printMap(g, map) {
 
 /**
  * Sends an empty map without the player
- * @param {object} message - message/server information
+ * @param {message} m - message/server information
  * @param {String[][]} map - 2D array of the map
  */
-function printEmptyMap(message, map) {
+function printEmptyMap(m, map) {
   message.channel.send({
-    embeds: [mapConfig.printMap(message, map)],
+    embeds: [printMap(m, map)],
   });
 }
 module.exports = { map1, getMapSize, printMap, printEmptyMap };
