@@ -2,6 +2,7 @@ const {} = require("discord.js");
 const mapConfig = require("../maps/map1");
 const movementController = require("../components/movementController");
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
+const { embedButtonInterface } = require("../components/embedInterface");
 
 // Movement Button Component
 const button = new ActionRowBuilder().addComponents(
@@ -39,10 +40,7 @@ module.exports = {
   callback(message) {
     // Starting Message
     let embed = screen(message);
-    message.channel.send({
-      embeds: [embed],
-      components: [button],
-    });
+    embedButtonInterface(message, embed, button);
 
     // Message Collector
     const collector = message.channel.createMessageComponentCollector();
