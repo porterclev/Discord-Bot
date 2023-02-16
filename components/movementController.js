@@ -7,11 +7,11 @@ var playerEmoji = "WAAHWAAHBOOHOO_NIBBA";
 
 /**
  * Moves player on the map
- * @param {object} message - description
+ * @param {message} m - description
  * @param {Bool} vertical- if player is moving vertical
  * @param {Integer} units - distance player will move
  */
-function movePlayer(message, vertical, units) {
+function movePlayer(m, vertical, units) {
   if (vertical === true) {
     playerY -= units;
   } else if (vertical === false) {
@@ -30,27 +30,25 @@ function getPlayerLocation() {
 
 /**
  * Player emoji representation
- * @param {object} message - discord message information
+ * @param {message} m - discord message information
  * @return {Map<String, Integer>} String of emoji name and Integer of emoji id
  */
-function getPlayerEmoji(message) {
-  let e = message.guild.emojis.cache.find(
-    (emoji) => emoji.name === playerEmoji
-  );
+function getPlayerEmoji(m) {
+  let e = m.guild.emojis.cache.find((emoji) => emoji.name === playerEmoji);
   return e;
 }
 
 /**
  * moves player up
  * @param {Integer} units - moves player this many units
- * @param {object} message - message/bot information
+ * @param {message} m - message/bot information
  */
-function moveUp(message, units) {
+function moveUp(m, units) {
   //moves player up 1 unit
-  movePlayer(message, true, units);
-  message.channel //send embed of game map with player to channel message/command was sent in
+  movePlayer(m, true, units);
+  m.channel //send embed of game map with player to channel message/command was sent in
     .send({
-      embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
+      embeds: [mapConfig.printMap(m, mapConfig.map1(m))],
     })
     .then((sentMessage) => {
       sentMessage.react("⬅️"),
@@ -63,14 +61,14 @@ function moveUp(message, units) {
 /**
  * moves player up
  * @param {Integer} units - moves player this many units
- * @param {object} message - message/bot information
+ * @param {message} m - message/bot information
  */
-function moveDown(message, units) {
+function moveDown(m, units) {
   //moves player down 1 unit
-  movePlayer(message, true, -units);
-  message.channel //send embed of game map with player to channel message/command was sent in
+  movePlayer(m, true, -units);
+  m.channel //send embed of game map with player to channel message/command was sent in
     .send({
-      embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
+      embeds: [mapConfig.printMap(m, mapConfig.map1(m))],
     })
     .then((sentMessage) => {
       sentMessage.react("⬅️"),
@@ -83,14 +81,14 @@ function moveDown(message, units) {
 /**
  * moves player up
  * @param {Integer} units - moves player this many units
- * @param {object} message - message/bot information
+ * @param {message} m - message/bot information
  */
-function moveLeft(message, units) {
+function moveLeft(m, units) {
   //moves player left 1 unit
-  movePlayer(message, false, -units);
-  message.channel //send embed of game map with player to channel message/command was sent in
+  movePlayer(m, false, -units);
+  m.channel //send embed of game map with player to channel message/command was sent in
     .send({
-      embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
+      embeds: [mapConfig.printMap(m, mapConfig.map1(m))],
     })
     .then((sentMessage) => {
       sentMessage.react("⬅️"),
@@ -103,14 +101,14 @@ function moveLeft(message, units) {
 /**
  * moves player up
  * @param {Integer} units - moves player this many units
- * @param {object} message - message/bot information
+ * @param {message} m - message/bot information
  */
-function moveRight(message, units) {
+function moveRight(m, units) {
   //moves player right 1 unit
-  movePlayer(message, false, units);
-  message.channel //send embed of game map with player to channel message/command was sent in
+  movePlayer(m, false, units);
+  m.channel //send embed of game map with player to channel message/command was sent in
     .send({
-      embeds: [mapConfig.printMap(message, mapConfig.map1(message))],
+      embeds: [mapConfig.printMap(m, mapConfig.map1(m))],
     })
     .then((sentMessage) => {
       sentMessage.react("⬅️"),
