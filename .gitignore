@@ -1,6 +1,7 @@
 #Dependencies
 /node_modules
 /media
+/components/Data
 #ignore all env files
 *.env
 *.mp3
