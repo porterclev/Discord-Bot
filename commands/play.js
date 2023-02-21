@@ -3,32 +3,17 @@ const mapConfig = require("../maps/map1");
 const movementController = require("../components/movementController");
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { embedButtonInterface } = require("../components/embedInterface");
+const { createList } = require("../components/createButtons");
 
 // Movement Button Component
-const button = new ActionRowBuilder().addComponents(
-  // Moves player right
-  new ButtonBuilder()
-    .setCustomId("playerRight")
-    .setLabel("Right")
-    .setStyle(ButtonStyle.Primary),
-
-  // Moves player left
-  new ButtonBuilder()
-    .setCustomId("playerLeft")
-    .setLabel("Left")
-    .setStyle(ButtonStyle.Primary),
-
-  // Moves player up
-  new ButtonBuilder()
-    .setCustomId("playerUp")
-    .setLabel("Up")
-    .setStyle(ButtonStyle.Primary),
-
-  // Moves player down
-  new ButtonBuilder()
-    .setCustomId("playerDown")
-    .setLabel("Down")
-    .setStyle(ButtonStyle.Primary)
+const button = createList(
+  {
+    playerRight: "Right",
+    playerLeft: "Left",
+    playerUp: "Up",
+    playerDown: "Down",
+  },
+  "Primary"
 );
 
 // Creates embed with the map
