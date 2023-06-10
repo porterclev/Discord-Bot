@@ -1,6 +1,5 @@
 #Dependencies
 /node_modules
-*/Media
 /components/Data
 #ignore all env files
 *.env
