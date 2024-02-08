@@ -30,8 +30,7 @@ function gifSelector() {
     "https://c.tenor.com/WPohVk87J8AAAAAC/tenor.gif",
   ];
   var randNum = Math.round(Math.random() * gifs.length);
-  console.log(randNum);
-  gif_str = gifs[randNum];
+  gif_str = gifs[randNum - 1];
   return gif_str;
 }
 
