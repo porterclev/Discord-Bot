@@ -28,6 +28,7 @@ function gifSelector() {
     "https://c.tenor.com/Qr10jgdVyG0AAAAC/tenor.gif",
     "https://c.tenor.com/iF-jXy8IZyIAAAAC/tenor.gif",
     "https://c.tenor.com/WPohVk87J8AAAAAC/tenor.gif",
+    "https://media.discordapp.net/attachments/988862412260274176/1164507850769432637/attachment-4.gif",
   ];
   var randNum = Math.round(Math.random() * gifs.length);
   gif_str = gifs[randNum - 1];
