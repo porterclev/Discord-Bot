@@ -11,31 +11,8 @@ function getDateDelta(date1, date2) {
   return delta;
 }
 
-/**
- * Randomly selects a gif from a list of gifs
- */
-function gifSelector() {
-  var gifs = [
-    "https://media.giphy.com/media/dQCLPqlnrRkpW/giphy.gif",
-    "https://media.tenor.com/GuULt2xlbV4AAAAd/dog.gif",
-    "https://media1.tenor.com/m/uLq-U2cHgOgAAAAC/point-gun-shoot.gif",
-    "https://c.tenor.com/tYqLnLVeU-UAAAAC/tenor.gif",
-    "https://c.tenor.com/mn8DAhCjE3oAAAAC/tenor.gif",
-    "https://c.tenor.com/0M7CVXnzWw4AAAAC/tenor.gif",
-    "https://c.tenor.com/iBpP1Cu0Y9UAAAAC/tenor.gif",
-    "https://c.tenor.com/eE2OLGiBR-QAAAAC/tenor.gif",
-    "https://c.tenor.com/0T3QicVfcIkAAAAC/tenor.gif",
-    "https://c.tenor.com/Qr10jgdVyG0AAAAC/tenor.gif",
-    "https://c.tenor.com/iF-jXy8IZyIAAAAC/tenor.gif",
-    "https://c.tenor.com/WPohVk87J8AAAAAC/tenor.gif",
-  ];
-  var randNum = Math.round(Math.random() * gifs.length);
-  gif_str = gifs[randNum - 1];
-  return gif_str;
-}
-
 module.exports = {
-  callback: (message, args) => {
+  callback: async (message, args, db) => {
     // Allows for manual date increase
     var increase = 0;
     if (message.content.length > 5) {
@@ -49,10 +26,22 @@ module.exports = {
     var judeDate = new Date();
     judeDate.setFullYear(2024, 0, 9);
 
-    // builds embed message
-    let embed = new EmbedBuilder()
-      .setDescription(getDateDelta(currentdate, judeDate) + " days of no Jude") //date and time
-      .setImage(gifSelector());
-    message.channel.send({ embeds: [embed] }); //sends embed to text channel message/command was sent in
+    // Selects a random gif from the database and sends the embed
+    db.collection("InternalData")
+      .doc("Gif_links")
+      .get("Links")
+      .then(async (doc) => {
+        var gifs = await doc.data().Links;
+        var randNum = Math.round(Math.random() * gifs.length);
+        var gif_str = gifs[randNum - 1];
+
+        // builds embed message
+        let embed = await new EmbedBuilder()
+          .setDescription(
+            getDateDelta(currentdate, judeDate) + " days of no Jude"
+          ) //date and time
+          .setImage(gif_str);
+        message.channel.send({ embeds: [embed] }); //sends embed to text channel message/command was sent in
+      });
   },
 };
