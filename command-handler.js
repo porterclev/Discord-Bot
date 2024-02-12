@@ -1,5 +1,24 @@
+require("dotenv").config();
+const serviceAccount = require("./discord-bot-auth.json");
 const mapConfig = require("./maps/map1.js");
 const getFiles = require("./components/get-files.js");
+const {
+  initializeApp,
+  applicationDefault,
+  cert,
+} = require("firebase-admin/app");
+const {
+  getFirestore,
+  Timestamp,
+  FieldValue,
+  Filter,
+} = require("firebase-admin/firestore");
+
+const firebaseConfig = {
+  credential: cert(serviceAccount),
+};
+initializeApp(firebaseConfig);
+const db = getFirestore();
 
 module.exports = (client) => {
   const commands = {};
@@ -38,7 +57,8 @@ module.exports = (client) => {
     const commandName = args.shift().toLowerCase();
 
     try {
-      commands[commandName].callback(message, args, mapConfig.map1(message));
+      // commands[commandName].callback(message, args, mapConfig.map1(message));
+      commands[commandName].callback(message, args, db);
     } catch (error) {
       console.error(error);
     }
