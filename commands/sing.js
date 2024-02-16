@@ -5,6 +5,9 @@ const cache = "./components/Cache/YTmp3/";
 
 module.exports = {
   callback: async (message, args) => {
+    message.channel.send("command is currently disabled");
+    return;
+
     let url = message.content.slice(6);
     if (url.slice(12, 23) !== "youtube.com") {
       message.channel.send("Please enter a youtube link");
