@@ -39,6 +39,7 @@ module.exports = {
       (err, res) => {
         if (err) {
           console.log(err);
+          message.channel.send("Database is currently unavailable.");
         } else {
           return message.channel.send({ embeds: [embed] }); //sends embed to text channel message/command was sent in
         }
