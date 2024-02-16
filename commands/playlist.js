@@ -30,6 +30,8 @@ try {
 
 module.exports = {
   callback: (message, args) => {
+    message.channel.send("command is currently disabled");
+    return;
     const audioplayer = voice.createAudioPlayer();
     let path = 0;
     voice
