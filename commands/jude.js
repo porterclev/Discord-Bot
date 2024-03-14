@@ -6,24 +6,24 @@ const { EmbedBuilder } = require("discord.js");
  * @param {Date} date2
  */
 function getDateDelta(date1, date2) {
-  var delta =
-    Math.round(date1.getTime() - date2.getTime()) / (1000 * 3600 * 24);
+  let delta =
+    (date1.getTime() - date2.getTime()) / (1000 * 3600 * 24);
   return delta;
 }
 
 module.exports = {
   callback: async (message, args, db) => {
     // Allows for manual date increase
-    var increase = 0;
+    let increase = 0;
     if (message.content.length > 5) {
       increase = parseInt(message.content.slice(6, 7));
     }
     // current date
-    var currentdate = new Date();
+    let currentdate = new Date();
     currentdate.setDate(currentdate.getDate() + increase);
 
     // date jude was last online
-    var judeDate = new Date();
+    let judeDate = new Date();
     judeDate.setFullYear(2024, 0, 9);
 
     // Selects a random gif from the database and sends the embed
@@ -37,11 +37,13 @@ module.exports = {
 
         // builds embed message
         let embed = await new EmbedBuilder()
-          .setDescription(
-            getDateDelta(currentdate, judeDate) + " days of no Jude"
+        .setDescription(
+          Math.round(getDateDelta(currentdate, judeDate)) + " days of no Jude"
           ) //date and time
           .setImage(gif_str);
-        message.channel.send({ embeds: [embed] }); //sends embed to text channel message/command was sent in
-      });
+          message.channel.send({ embeds: [embed] }); //sends embed to text channel message/command was sent in
+        });
+        message.delete();
+
   },
 };

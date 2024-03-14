@@ -65,7 +65,7 @@ module.exports = (client) => {
    */
   client.on("messageCreate", (message) => {
     //cancels processing if auther is a bot or message doesn't start with "."
-    if (message.author.bot || !message.content.startsWith("!")) {
+    if (message.author.bot || !message.content.startsWith(".")) {
       return;
     }
     const args = message.content.slice(1).split(/ +/);  // parses args out of message (array)
