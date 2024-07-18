@@ -18,32 +18,27 @@ module.exports = {
     if (message.content.length > 5) {
       increase = parseInt(message.content.slice(6, 7));
     }
-    // current date
-    let currentdate = new Date();
-    currentdate.setDate(currentdate.getDate() + increase);
 
-    // date jude was last online
-    let judeDate = new Date();
-    judeDate.setFullYear(2024, 0, 9);
+    let currentdate = new Date();
 
     // Selects a random gif from the database and sends the embed
-    db.collection("InternalData")
-      .doc("Gif_links")
-      .get("Links")
-      .then(async (doc) => {
-        var gifs = await doc.data().Links;
-        var randNum = Math.round(Math.random() * gifs.length);
-        var gif_str = gifs[randNum - 1];
+    const judeData = await db.collection("UserData").doc("264093030041124864").get();
+    let judeDate = judeData.data().LastMessage.toDate();
 
-        // builds embed message
-        let embed = await new EmbedBuilder()
-        .setDescription(
-          Math.round(getDateDelta(currentdate, judeDate)) + " days of no Jude"
-          ) //date and time
-          .setImage(gif_str);
-          message.channel.send({ embeds: [embed] }); //sends embed to text channel message/command was sent in
-        });
-        message.delete();
+    const gifData = await db.collection("InternalData").doc("Gif_links").get("Links");
+    var gifs = gifData.data().Links;
 
+    var randNum = Math.round(Math.random() * gifs.length);
+    var gif_str = gifs[randNum - 1];
+    let dateDetla = await getDateDelta(currentdate, judeDate);
+
+    // builds embed message
+    let embed = new EmbedBuilder()
+      .setDescription(
+        Math.round(dateDetla) + " days of no Jude"
+      ) //date and time
+      .setImage(gif_str);
+    message.channel.send({ embeds: [embed] }); //sends embed to text channel message/command was sent in
+    message.delete();
   },
 };
