@@ -1,8 +1,8 @@
 const { ActionRowBuilder, ButtonBuilder, EmbedBuilder, ComponentType } = require("discord.js");
 const { embedButtonInterface } = require("../components/embedInterface");
 const { createList } = require("../components/createButtons");
-let boards = ["Sekiro", "Elden Ring"];
-let boardIcons = ["https://i.imgur.com/Br4NfBm.jpeg", "https://i.imgur.com/bxy3Fpq.jpeg"]
+let boards = ["Sekiro", "Elden Ring", "Gaydar"];
+let boardIcons = ["https://i.imgur.com/Br4NfBm.jpeg", "https://i.imgur.com/bxy3Fpq.jpeg", "https://i.imgur.com/QWoNv.jpeg"]
 
 module.exports = {
   callback: (message, args, db) => {
