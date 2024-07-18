@@ -1,9 +1,30 @@
+require("dotenv").config();
+const serviceAccount = require("./discord-bot-auth.json");
+const mapConfig = require("./maps/map1.js");
+const {
+    initializeApp,
+    applicationDefault,
+    cert,
+} = require("firebase-admin/app");
+const {
+    getFirestore,
+    Timestamp,
+    FieldValue,
+    Filter,
+} = require("firebase-admin/firestore");
+
+const firebaseConfig = {
+    credential: cert(serviceAccount),
+};
+initializeApp(firebaseConfig);
+const db = getFirestore();
+
 //Constants
 const {
-  Client,
-  Intents,
-  MessageEmbed,
-  GatewayIntentBits,
+    Client,
+    Intents,
+    MessageEmbed,
+    GatewayIntentBits,
 } = require("discord.js");
 require("dotenv").config();
 
@@ -13,26 +34,28 @@ const voice = require("@discordjs/voice");
 const { join } = require("path");
 
 const bot = new Client({
-  intents: [
-    GatewayIntentBits.DirectMessages,
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildVoiceStates,
-  ],
+    intents: [
+        GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildVoiceStates,
+    ],
 });
 
 //Start up
 bot.on("ready", async () => {
-  console.log("This bot is online!");
-  let handler = require("./command-handler.js");
-  if (handler.default) {
-    handler = handler.default;
-  }
+    console.log("This bot is online!");
+    let handler = require("./command-handler.js");
+    let logger = require("./logs.js");
+    if (handler.default) {
+        handler = handler.default;
+    }
 
-  handler(bot);
+    handler(bot, db);
+    logger(bot, db);
 });
 
 /*
